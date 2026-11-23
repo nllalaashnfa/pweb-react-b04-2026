@@ -484,6 +484,22 @@ export function JobExplorer({
                   >
                     <h3>{job.title}</h3>
 
+{source === "api" && (
+  <p className="job-source-link">
+    <strong>Sumber:</strong> Remotive{" "}
+    {job.url && (
+      <a
+        href={job.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Lihat lowongan asli
+      </a>
+    )}
+  </p>
+)}
+
+
                     <p>
                       <strong>Perusahaan:</strong>{" "}
                       {job.company_name}
@@ -598,8 +614,8 @@ export function JobExplorer({
                         }}
                       >
                         {alreadySaved
-                          ? "Sudah Dilamar"
-                          : "Tambah ke Wishlist"}
+  ? "Sudah Dilamar"
+  : "Simpan ke Wishlist"}
                       </button>
                     </div>
                   </article>

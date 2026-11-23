@@ -1,3 +1,4 @@
+
 export interface JobListing {
   id: number;
   title: string;
@@ -6,6 +7,7 @@ export interface JobListing {
   candidate_required_location: string;
   salary: string;
   tags: string[];
+  url?: string;
 }
 
 export interface JobApiResponse {

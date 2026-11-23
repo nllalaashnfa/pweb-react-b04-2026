@@ -1,3 +1,4 @@
+
 import type { JobListing } from "../types/job";
 
 export type JobSource = "api" | "fallback";
@@ -17,26 +18,92 @@ function isRecord(
   );
 }
 
-function isJobListing(value: unknown): value is JobListing {
+function normalizeJobListing(
+  value: unknown,
+  source: JobSource
+): JobListing | null {
   if (!isRecord(value)) {
-    return false;
+    return null;
   }
 
-  return (
-    typeof value.id === "number" &&
-    typeof value.title === "string" &&
-    typeof value.company_name === "string" &&
-    typeof value.category === "string" &&
-    typeof value.candidate_required_location === "string" &&
-    typeof value.salary === "string" &&
-    Array.isArray(value.tags) &&
-    value.tags.every((tag) => typeof tag === "string")
-  );
+  const id =
+    typeof value.id === "number"
+      ? value.id
+      : typeof value.id === "string"
+        ? Number(value.id)
+        : Number.NaN;
+
+  const title =
+    typeof value.title === "string"
+      ? value.title.trim()
+      : "";
+
+  const companyName =
+    typeof value.company_name === "string"
+      ? value.company_name.trim()
+      : "";
+
+  if (
+    !Number.isFinite(id) ||
+    !title ||
+    !companyName
+  ) {
+    return null;
+  }
+
+  const url =
+    typeof value.url === "string" &&
+    value.url.startsWith("https://remotive.com/")
+      ? value.url
+      : undefined;
+
+  // Lowongan API harus memiliki tautan asli.
+  if (source === "api" && !url) {
+    return null;
+  }
+
+  const tags = Array.isArray(value.tags)
+    ? value.tags
+        .filter(
+          (tag): tag is string =>
+            typeof tag === "string"
+        )
+        .map((tag) => tag.trim())
+        .filter(Boolean)
+    : [];
+
+  return {
+    id,
+    title,
+    company_name: companyName,
+
+    category:
+      typeof value.category === "string" &&
+      value.category.trim()
+        ? value.category.trim()
+        : "Lainnya",
+
+    candidate_required_location:
+      typeof value.candidate_required_location === "string" &&
+      value.candidate_required_location.trim()
+        ? value.candidate_required_location.trim()
+        : "Tidak dicantumkan",
+
+    salary:
+      typeof value.salary === "string"
+        ? value.salary.trim()
+        : "",
+
+    tags,
+
+    ...(url ? { url } : {}),
+  };
 }
 
 async function fetchJobsFromUrl(
   url: string,
-  signal: AbortSignal
+  signal: AbortSignal,
+  source: JobSource
 ): Promise<JobListing[]> {
   const response = await fetch(url, { signal });
 
@@ -52,10 +119,14 @@ async function fetchJobsFromUrl(
     throw new Error("Format respons API tidak valid.");
   }
 
-  const jobs: unknown[] = data.jobs;
+  const jobs = data.jobs
+    .map((job) => normalizeJobListing(job, source))
+    .filter(
+      (job): job is JobListing => job !== null
+    );
 
-  if (!jobs.every(isJobListing)) {
-    throw new Error("Format data lowongan tidak sesuai.");
+  if (data.jobs.length > 0 && jobs.length === 0) {
+    throw new Error("Tidak ada data lowongan valid.");
   }
 
   return jobs;
@@ -70,5 +141,5 @@ export async function getJobListings(
       ? REMOTIVE_API_URL
       : FALLBACK_URL;
 
-  return fetchJobsFromUrl(url, signal);
+  return fetchJobsFromUrl(url, signal, source);
 }

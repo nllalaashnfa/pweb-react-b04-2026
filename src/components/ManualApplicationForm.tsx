@@ -79,10 +79,11 @@ export function ManualApplicationForm({
   const [success, setSuccess] = useState("");
 
   // Referensi input untuk auto-focus
-  const companyRef = useRef<HTMLInputElement>(null);
-  const roleRef = useRef<HTMLInputElement>(null);
-  const cvRef = useRef<HTMLInputElement>(null);
-  const dateRef = useRef<HTMLInputElement>(null);
+const companyRef = useRef<HTMLInputElement>(null);
+const roleRef = useRef<HTMLInputElement>(null);
+const requiredSkillsRef = useRef<HTMLInputElement>(null);
+const cvRef = useRef<HTMLInputElement>(null);
+const dateRef = useRef<HTMLInputElement>(null);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -119,7 +120,12 @@ export function ManualApplicationForm({
       companyRef.current?.focus();
       return;
     }
-
+// 4. Validasi Required Skills
+if (!requiredSkills.trim()) {
+  setError("Required Skills wajib diisi.");
+  requiredSkillsRef.current?.focus();
+  return;
+}
     // 4. Validasi khusus APPLIED
     if (status === "APPLIED") {
       if (!cvVersion.trim()) {
@@ -308,20 +314,21 @@ export function ManualApplicationForm({
             Required Skills
           </label>
 
-          <input
-            id="manual-skills"
-            type="text"
-            value={requiredSkills}
+<input
+  ref={requiredSkillsRef}
+  id="manual-skills"
+  type="text"
+  value={requiredSkills}
             onChange={(event) =>
               setRequiredSkills(event.target.value)
             }
             placeholder="React, TypeScript, CSS"
           />
 
-          <small>
-            Pisahkan setiap skill menggunakan koma.
-            Boleh dikosongkan jika belum diketahui.
-          </small>
+<small>
+  Pisahkan setiap skill menggunakan koma.
+  Contoh: React, TypeScript, CSS.
+</small>
         </div>
 
         {/* Input kondisional APPLIED */}
