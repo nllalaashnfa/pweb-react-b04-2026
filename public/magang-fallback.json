@@ -1,0 +1,140 @@
+{
+  "job-count": 15,
+  "jobs": [
+    {
+      "id": 1001,
+      "title": "Information Technology Intern - Software Development",
+      "company_name": "Philip Morris Indonesia",
+      "category": "Software Development",
+      "candidate_required_location": "Surabaya",
+      "salary": "Rp 4.500.000",
+      "tags": ["Python", "JavaScript", "React", "Angular"]
+    },
+    {
+      "id": 1002,
+      "title": "Software Engineer Intern",
+      "company_name": "Ukirama Solusi Indonesia",
+      "category": "Software Development",
+      "candidate_required_location": "Jakarta (Onsite)",
+      "salary": "Rp 3.500.000",
+      "tags": ["JavaScript", "HTML", "CSS", "React", "Git", "Java"]
+    },
+    {
+      "id": 1003,
+      "title": "Helpdesk Engineer Intern - IT (JKT)",
+      "company_name": "Shopee Indonesia",
+      "category": "IT Support",
+      "candidate_required_location": "Jakarta",
+      "salary": "Rp 3.000.000",
+      "tags": ["Windows", "macOS", "Troubleshooting", "Networking"]
+    },
+    {
+      "id": 1004,
+      "title": "Data Analyst Intern - Data Payments",
+      "company_name": "GoTo Group",
+      "category": "Data Analytics",
+      "candidate_required_location": "Jakarta",
+      "salary": "Rp 4.500.000",
+      "tags": ["SQL", "Excel", "Python", "Tableau", "Power BI"]
+    },
+    {
+      "id": 1005,
+      "title": "Frontend Engineer Intern",
+      "company_name": "Ralali",
+      "category": "Software Development",
+      "candidate_required_location": "Indonesia",
+      "salary": "Rp 3.000.000",
+      "tags": ["HTML", "CSS", "JavaScript", "Bootstrap", "Vue.js", "Git"]
+    },
+    {
+      "id": 1006,
+      "title": "Frontend Engineer Intern",
+      "company_name": "Paper.id",
+      "category": "Software Development",
+      "candidate_required_location": "Jakarta Utara",
+      "salary": "Rp 3.500.000",
+      "tags": ["HTML", "CSS", "JavaScript", "Angular", "REST API"]
+    },
+    {
+      "id": 1007,
+      "title": "Frontend Developer Intern",
+      "company_name": "Suitmedia Digital Agency",
+      "category": "Software Development",
+      "candidate_required_location": "Malang, Bandung, Jakarta Selatan",
+      "salary": "Rp 2.750.000",
+      "tags": ["HTML", "CSS", "JavaScript", "Sketch", "Adobe Photoshop"]
+    },
+    {
+      "id": 1008,
+      "title": "Quality Assurance Intern",
+      "company_name": "Qiscus",
+      "category": "Quality Assurance",
+      "candidate_required_location": "Yogyakarta",
+      "salary": "Rp 2.500.000",
+      "tags": ["Agile", "UAT", "Postman", "Selenium", "LLM"]
+    },
+    {
+      "id": 1009,
+      "title": "Quality Assurance Intern",
+      "company_name": "Inovasi Daya Solusi",
+      "category": "Quality Assurance",
+      "candidate_required_location": "Jakarta Barat",
+      "salary": "Rp 2.800.000",
+      "tags": ["Java", "SQL", "Git", "Selenium", "Playwright", "CI/CD"]
+    },
+    {
+      "id": 1010,
+      "title": "UI/UX Design Intern",
+      "company_name": "Pharos Indonesia",
+      "category": "Design",
+      "candidate_required_location": "Jakarta Selatan (Hybrid)",
+      "salary": "Rp 2.500.000",
+      "tags": ["Figma", "UI Design", "UX Design"]
+    },
+    {
+      "id": 1011,
+      "title": "IT Developer Intern",
+      "company_name": "BLP Beauty",
+      "category": "Software Development",
+      "candidate_required_location": "Jakarta Selatan (Hybrid)",
+      "salary": "Rp 3.000.000",
+      "tags": ["TypeScript", "JavaScript", "HTML", "CSS", "Node.js", "Git"]
+    },
+    {
+      "id": 1012,
+      "title": "Quality Assurance Intern",
+      "company_name": "Agate International",
+      "category": "Quality Assurance",
+      "candidate_required_location": "Bandung",
+      "salary": "Rp 2.500.000",
+      "tags": ["Quality Assurance", "Functional Testing", "Game Testing"]
+    },
+    {
+      "id": 1013,
+      "title": "Information Technology Internship",
+      "company_name": "Procter & Gamble Indonesia",
+      "category": "IT Support",
+      "candidate_required_location": "Jakarta Pusat (Onsite)",
+      "salary": "Rp 4.000.000",
+      "tags": ["IT", "Automation", "Data Analysis"]
+    },
+    {
+      "id": 1014,
+      "title": "Software Engineer Intern",
+      "company_name": "Qoala Indonesia",
+      "category": "Software Development",
+      "candidate_required_location": "Jakarta Selatan (Hybrid)",
+      "salary": "Rp 4.500.000",
+      "tags": ["Go", "Java", "Python", "JavaScript", "React", "SQL"]
+    },
+    {
+      "id": 1015,
+      "title": "Data Analyst Intern (Hybrid)",
+      "company_name": "Flip Indonesia",
+      "category": "Data Analytics",
+      "candidate_required_location": "Jakarta (Hybrid)",
+      "salary": "Rp 3.500.000",
+      "tags": ["SQL", "Google Sheets", "Data Analysis"]
+    }
+  ]
+}

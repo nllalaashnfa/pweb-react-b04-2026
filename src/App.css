@@ -1,0 +1,1527 @@
+
+/* =====================================================
+   AKU MW MAGANG
+   BLUE NEUTRAL DASHBOARD THEME
+===================================================== */
+
+/* ================= COLOR PALETTE ================= */
+
+:root {
+  --black: #02000D;
+  --navy: #07203F;
+  --beige: #EBDED4;
+  --peach: #D9AA90;
+  --terracotta: #A65E46;
+
+  --background: #EBDED4;
+  --surface: #FFFFFF;
+  --text: #02000D;
+  --muted: #647080;
+  --border: rgba(7, 32, 63, 0.14);
+
+  --success: #2F7652;
+  --success-bg: #E8F2EB;
+
+  --warning: #946020;
+  --warning-bg: #FFF2D9;
+
+  --danger: #A65E46;
+  --danger-bg: #F8EAE5;
+
+  --radius: 14px;
+  --shadow: 0 4px 18px rgba(2, 0, 13, 0.06);
+  --transition: all 0.2s ease;
+}
+
+/* ================= RESET ================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+
+  background: var(--background);
+  color: var(--text);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* =====================================================
+   APP SHELL
+===================================================== */
+
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.app-header {
+  width: 100%;
+  margin: 0;
+  padding: 20px clamp(20px, 4vw, 65px);
+
+  background: var(--navy);
+  color: white;
+
+  border-bottom: 3px solid var(--peach);
+}
+
+.app-header h1 {
+  margin: 0;
+
+  color: white;
+
+  font-size: clamp(23px, 2vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.app-header p {
+  margin: 5px 0 0;
+
+  color: var(--beige);
+  font-size: 14px;
+}
+
+/* =====================================================
+   MAIN LAYOUT
+===================================================== */
+
+.app-shell > main {
+  width: 100%;
+  max-width: 1800px;
+
+  margin: 0 auto;
+  padding: clamp(20px, 3vw, 42px);
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(250px, 310px)
+    minmax(0, 1fr);
+
+  align-items: start;
+  gap: 25px;
+}
+
+/* Profil skill */
+
+.app-shell > main > .skill-profile {
+  grid-column: 1;
+  grid-row: 1;
+
+  width: 100%;
+  max-width: none;
+
+  position: sticky;
+  top: 20px;
+}
+
+/* Job explorer */
+
+.app-shell > main > .job-explorer {
+  grid-column: 2;
+  grid-row: 1;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* Form manual */
+
+.app-shell > main > .manual-application {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+/* Application tracker */
+
+.app-shell > main > .application-tracker {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+/* =====================================================
+   GENERAL CARD
+===================================================== */
+
+.skill-profile,
+.job-card,
+.manual-application,
+.application-card,
+.application-empty {
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+}
+
+/* =====================================================
+   SKILL PROFILE
+===================================================== */
+
+.skill-profile {
+  padding: 24px;
+}
+
+.skill-profile h2 {
+  margin: 0 0 12px;
+
+  color: var(--navy);
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.skill-profile p {
+  margin: 0 0 15px;
+  color: var(--muted);
+}
+
+/* Form tambah skill */
+
+.skill-profile form {
+  display: flex;
+  gap: 9px;
+  margin: 18px 0;
+}
+
+.skill-profile input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+
+  padding: 11px 13px;
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  background: white;
+  outline: none;
+}
+
+.skill-profile input:focus {
+  border-color: var(--navy);
+
+  box-shadow:
+    0 0 0 3px rgba(7, 32, 63, 0.10);
+}
+
+.skill-profile form button {
+  padding: 11px 15px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: var(--navy);
+  color: white;
+
+  font-weight: 700;
+  white-space: nowrap;
+
+  transition: var(--transition);
+}
+
+.skill-profile form button:hover {
+  background: var(--terracotta);
+}
+
+/* Skill chips */
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-list button {
+  padding: 7px 11px;
+
+  border: 1px solid var(--peach);
+  border-radius: 7px;
+
+  background: var(--beige);
+  color: var(--navy);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: var(--transition);
+}
+
+.skill-list button:hover {
+  background: var(--peach);
+}
+
+/* =====================================================
+   JOB EXPLORER
+===================================================== */
+
+.job-explorer {
+  min-width: 0;
+}
+
+.job-explorer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  flex-wrap: wrap;
+  gap: 18px;
+
+  margin-bottom: 23px;
+}
+
+.job-explorer-header h2 {
+  margin: 0 0 6px;
+
+  color: var(--navy);
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.job-explorer-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Sumber data */
+
+.source-control {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  min-width: 170px;
+}
+
+.source-control label,
+.job-search label,
+.category-filter label,
+.sort-filter label {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.job-search {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  margin: 20px 0;
+}
+
+.job-search input {
+  width: 100%;
+  min-width: 0;
+
+  padding: 13px 15px;
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  background: white;
+  color: var(--text);
+
+  outline: none;
+  transition: var(--transition);
+}
+
+.job-search input:focus {
+  border-color: var(--navy);
+
+  box-shadow:
+    0 0 0 3px rgba(7, 32, 63, 0.10);
+}
+
+/* =====================================================
+   SORTING & CATEGORY
+===================================================== */
+
+.category-filter {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px 16px;
+  align-items: end;
+
+  margin-bottom: 22px;
+}
+
+.sort-filter {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+}
+
+.category-filter > label {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.category-filter > select {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.category-filter select,
+.sort-filter select,
+.source-control select {
+  width: 100%;
+  min-width: 0;
+
+  padding: 11px 13px;
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  background: white;
+  color: var(--navy);
+
+  outline: none;
+  cursor: pointer;
+}
+
+.category-filter select:focus,
+.sort-filter select:focus,
+.source-control select:focus {
+  border-color: var(--navy);
+}
+
+/* =====================================================
+   JOB COUNT
+===================================================== */
+
+.job-count {
+  margin: 18px 0 15px;
+
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* =====================================================
+   JOB GRID
+===================================================== */
+
+.job-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+
+  gap: 17px;
+  align-items: start;
+}
+
+/* =====================================================
+   JOB CARD
+===================================================== */
+
+.job-card {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+
+  padding: 20px;
+
+  transition: var(--transition);
+}
+
+.job-card:hover {
+  transform: translateY(-3px);
+
+  border-color: var(--peach);
+
+  box-shadow:
+    0 9px 25px rgba(2, 0, 13, 0.10);
+}
+
+.job-card h3 {
+  margin: 0 0 15px;
+
+  color: var(--navy);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.job-card p {
+  margin: 0 0 11px;
+
+  color: var(--muted);
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
+}
+
+.job-card strong {
+  color: var(--navy);
+}
+
+/* =====================================================
+   REQUIRED SKILLS
+===================================================== */
+
+.job-skills {
+  margin-top: 15px;
+}
+
+.job-skills > strong {
+  display: block;
+  color: var(--navy);
+}
+
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+
+  margin-top: 9px;
+}
+
+.job-tag {
+  display: inline-block;
+
+  padding: 5px 9px;
+
+  border: 1px solid rgba(7, 32, 63, 0.12);
+  border-radius: 6px;
+
+  background: var(--beige);
+  color: var(--navy);
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =====================================================
+   SKILL MATCH
+===================================================== */
+
+.job-card .job-skill-match,
+.job-card .skill-match,
+.job-card .skill-match-section {
+  margin-top: 17px;
+  padding-top: 15px;
+
+  border-top: 1px solid var(--border);
+}
+
+.skill-match-heading,
+.skill-match-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-bottom: 10px;
+}
+
+.skill-match-badge,
+.skill-score,
+.match-score {
+  display: inline-block;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: var(--beige);
+  color: var(--navy);
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.skill-match-details {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.skill-match-details p {
+  margin-bottom: 7px;
+  overflow-wrap: anywhere;
+}
+
+/* =====================================================
+   JOB SAVE BUTTON
+===================================================== */
+
+.job-card button {
+  padding: 10px 15px;
+
+  border: 1px solid var(--navy);
+  border-radius: 8px;
+
+  background: var(--navy);
+  color: white;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transition: var(--transition);
+}
+
+.job-card button:hover {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+}
+
+.job-card button:disabled {
+  background: #AAB4BF;
+  border-color: #AAB4BF;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   JOB LOADING / ERROR
+===================================================== */
+
+.job-message,
+.job-error {
+  padding: 22px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  background: white;
+}
+
+.job-message {
+  color: var(--navy);
+}
+
+.job-error {
+  border-color: var(--peach);
+  background: var(--danger-bg);
+}
+
+.job-error h3 {
+  color: var(--terracotta);
+}
+
+.job-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.job-actions button,
+.job-message button {
+  padding: 10px 15px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--navy);
+  color: white;
+
+  font-weight: 700;
+}
+
+/* =====================================================
+   MANUAL APPLICATION FORM
+===================================================== */
+
+.manual-application {
+  margin-top: 8px;
+  padding: 26px;
+}
+
+.manual-application-header {
+  margin-bottom: 22px;
+}
+
+.manual-application-header h2 {
+  margin: 0 0 7px;
+
+  color: var(--navy);
+  font-size: 22px;
+}
+
+.manual-application-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Form layout */
+
+.manual-application form {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 17px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  min-width: 0;
+}
+
+.form-field label {
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  min-width: 0;
+
+  padding: 12px 13px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: white;
+  color: var(--text);
+
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: var(--navy);
+
+  box-shadow:
+    0 0 0 3px rgba(7, 32, 63, 0.10);
+}
+
+.form-field small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Applied fields */
+
+.applied-fields {
+  grid-column: 1 / -1;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+
+  padding: 18px;
+
+  border: 1px solid var(--peach);
+  border-radius: 10px;
+
+  background: var(--beige);
+}
+
+.applied-fields h3 {
+  grid-column: 1 / -1;
+
+  margin: 0;
+  color: var(--navy);
+}
+
+/* Form messages */
+
+.form-error,
+.form-success {
+  grid-column: 1 / -1;
+
+  padding: 11px 14px;
+  border-radius: 8px;
+
+  font-size: 13px;
+}
+
+.form-error {
+  background: var(--danger-bg);
+  color: var(--terracotta);
+}
+
+.form-success {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+/* Submit */
+
+.manual-application form > button {
+  grid-column: 1 / -1;
+  justify-self: start;
+
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--navy);
+  color: white;
+
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.manual-application form > button:hover {
+  background: var(--terracotta);
+}
+
+/* =====================================================
+   APPLICATION TRACKER
+===================================================== */
+
+.application-tracker {
+  margin-top: 12px;
+  padding-top: 28px;
+
+  border-top: 2px solid var(--peach);
+}
+
+.application-tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-wrap: wrap;
+  gap: 15px;
+
+  margin-bottom: 22px;
+}
+
+.application-tracker-header h2 {
+  margin: 0 0 6px;
+
+  color: var(--navy);
+  font-size: 22px;
+}
+
+.application-tracker-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.application-total {
+  padding: 8px 15px;
+
+  border: 1px solid var(--peach);
+  border-radius: 20px;
+
+  background: var(--beige);
+  color: var(--navy);
+
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Application grid */
+
+.application-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+
+  gap: 18px;
+  align-items: start;
+}
+
+/* Application card */
+
+.application-card {
+  min-width: 0;
+  padding: 20px;
+
+  transition: var(--transition);
+}
+
+.application-card:hover {
+  border-color: var(--peach);
+}
+
+.application-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+
+  margin-bottom: 16px;
+}
+
+.application-card-header h3 {
+  margin: 0;
+
+  color: var(--navy);
+  font-size: 17px;
+
+  overflow-wrap: anywhere;
+}
+
+.application-status {
+  padding: 5px 10px;
+
+  border: 1px solid var(--peach);
+  border-radius: 20px;
+
+  background: var(--beige);
+  color: var(--navy);
+
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.application-card > p {
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.application-skills {
+  margin-top: 15px;
+}
+
+.application-skills strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--navy);
+}
+
+.application-date {
+  margin-top: 18px;
+  padding-top: 12px;
+
+  border-top: 1px solid var(--border);
+
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Empty state */
+
+.application-empty {
+  padding: 35px 20px;
+  text-align: center;
+}
+
+.application-empty h3 {
+  color: var(--navy);
+}
+
+.application-empty p {
+  color: var(--muted);
+}
+
+/* =====================================================
+   APPLICATION BUTTONS
+===================================================== */
+
+.application-card button {
+  padding: 9px 13px;
+
+  border: 1px solid var(--navy);
+  border-radius: 8px;
+
+  background: var(--navy);
+  color: white;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transition: var(--transition);
+}
+
+.application-card button:hover {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+}
+
+/* Cancel wishlist */
+
+.application-delete-button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 11px 14px;
+
+  border: 1px solid var(--terracotta);
+  border-radius: 8px;
+
+  background: white;
+  color: var(--terracotta);
+
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.application-delete-button:hover {
+  background: var(--terracotta);
+  color: white;
+}
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.undo-toast {
+  position: fixed;
+
+  right: 22px;
+  bottom: 22px;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-wrap: wrap;
+  gap: 15px;
+
+  max-width: calc(100vw - 32px);
+  padding: 15px 20px;
+
+  border: 1px solid var(--peach);
+  border-radius: 10px;
+
+  background: var(--navy);
+  color: white;
+
+  box-shadow: 0 5px 20px rgba(2, 0, 13, 0.2);
+}
+
+.undo-toast button {
+  border: none;
+  background: transparent;
+  color: var(--peach);
+  font-weight: 800;
+}
+
+@keyframes toast-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   TABLET RESPONSIVE
+===================================================== */
+
+@media (max-width: 1050px) {
+
+  .app-shell > main {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .app-shell > main > .skill-profile,
+  .app-shell > main > .job-explorer,
+  .app-shell > main > .manual-application,
+  .app-shell > main > .application-tracker {
+    grid-column: 1;
+    grid-row: auto;
+
+    position: static;
+    width: 100%;
+  }
+
+  .job-grid {
+    grid-template-columns:
+      repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  }
+}
+
+/* =====================================================
+   SMALL TABLET
+===================================================== */
+
+@media (max-width: 760px) {
+
+  .app-shell > main {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .job-explorer-header {
+    flex-direction: column;
+  }
+
+  .source-control {
+    width: 100%;
+  }
+
+  .application-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 560px) {
+
+  .app-header {
+    padding: 18px 16px;
+  }
+
+  .app-header h1 {
+    font-size: 23px;
+  }
+
+  .app-shell > main {
+    padding: 14px;
+    gap: 17px;
+  }
+
+  .skill-profile,
+  .manual-application {
+    padding: 18px;
+  }
+
+  .skill-profile form {
+    flex-direction: column;
+  }
+
+  .skill-profile form button {
+    width: 100%;
+  }
+
+  .job-grid,
+  .application-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sort-filter,
+  .category-filter > label,
+  .category-filter > select {
+    width: 100%;
+  }
+
+  .manual-application form {
+    grid-template-columns: 1fr;
+  }
+
+  .applied-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .applied-fields h3,
+  .form-error,
+  .form-success,
+  .manual-application form > button {
+    grid-column: 1;
+  }
+
+  .application-tracker-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .undo-toast {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+/* =====================================================
+   EXTRA SMALL MOBILE
+===================================================== */
+
+@media (max-width: 360px) {
+
+  .app-shell > main {
+    padding: 10px;
+  }
+
+  .job-card,
+  .application-card {
+    padding: 15px;
+  }
+
+  .skill-profile,
+  .manual-application {
+    padding: 15px;
+  }
+
+  .application-card-header {
+    flex-direction: column;
+  }
+}
+
+
+/* ===== SKILL MATCH COLOR ===== */
+
+.job-skill-match {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #EBDED4;
+}
+
+.skill-match-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.skill-match-badge {
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Hijau: 70–100% */
+.skill-match-badge.high {
+  background: #E3F4E8;
+  color: #247448;
+  border: 1px solid #B8DFC4;
+}
+
+/* Kuning: 40–69% */
+.skill-match-badge.medium {
+  background: #FFF2D0;
+  color: #946020;
+  border: 1px solid #F0D58B;
+}
+
+/* Merah: 0–39% */
+.skill-match-badge.low {
+  background: #FBE5E3;
+  color: #A33D35;
+  border: 1px solid #EFC1BC;
+}
+
+.skill-match-details p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* FIX: Profil Skill tidak mengikuti scroll */
+
+.app-shell > main > .skill-profile {
+  position: static !important;
+  top: auto !important;
+  align-self: start;
+  height: fit-content;
+}
+
+/* Pastikan section tidak saling menimpa */
+
+.app-shell > main > .manual-application,
+.app-shell > main > .application-tracker {
+  position: relative;
+  z-index: 1;
+  clear: both;
+}
+
+/* Profil Skill tetap di posisi awal */
+.app-shell > main > .skill-profile {
+  z-index: auto;
+}
+
+
+/* ========================================
+   DASHBOARD NAVIGATION
+======================================== */
+
+.app-shell {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  background: #EBDED4;
+}
+
+/* HEADER */
+
+.dashboard-header {
+  width: 100%;
+  min-height: 76px;
+  box-sizing: border-box;
+
+  padding: 12px clamp(18px, 3vw, 48px);
+
+  background: #07203F;
+  color: white;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+
+  position: relative;
+  z-index: 10;
+}
+
+.dashboard-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 38px;
+  height: 38px;
+  background: #1875E8;
+  border-radius: 9px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 800;
+  color: white;
+}
+
+.dashboard-brand h1 {
+  color: white;
+  font-size: 21px;
+  margin: 0;
+}
+
+/* NAVIGATION */
+
+.dashboard-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-nav button {
+  border: none;
+  background: transparent;
+  color: #DCE5F0;
+
+  padding: 12px 17px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dashboard-nav button:hover {
+  background: #153F6C;
+  color: white;
+}
+
+.dashboard-nav button.active {
+  background: #244D78;
+  color: white;
+}
+
+/* CATAT LAMARAN */
+
+.dashboard-add-button {
+  justify-self: end;
+
+  background: #1875E8;
+  color: white;
+
+  border: none;
+  border-radius: 9px;
+
+  padding: 13px 20px;
+
+  font-weight: 700;
+  font-size: 14px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dashboard-add-button:hover {
+  background: #3288F3;
+}
+
+/* ========================================
+   DASHBOARD CONTENT
+======================================== */
+
+.dashboard-main {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+
+  padding: 28px clamp(18px, 3vw, 45px);
+
+  box-sizing: border-box;
+}
+
+/* HALAMAN EKSPLORASI */
+
+.dashboard-main.view-explore {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.dashboard-main.view-explore > .skill-profile {
+  grid-column: 1;
+  grid-row: 1;
+  position: static !important;
+  width: 100%;
+  max-width: none;
+}
+
+.dashboard-main.view-explore > .job-explorer {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+/* HALAMAN PIPELINE */
+
+.dashboard-main.view-pipeline {
+  display: block;
+}
+
+.dashboard-main.view-pipeline > .application-tracker {
+  width: 100%;
+}
+
+/* HALAMAN CATAT LAMARAN */
+
+.dashboard-main.view-add {
+  display: block;
+}
+
+.dashboard-main.view-add > .manual-application {
+  width: 100%;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1000px) {
+
+  .dashboard-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .dashboard-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: center;
+  }
+
+  .dashboard-main.view-explore {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-main.view-explore > .skill-profile,
+  .dashboard-main.view-explore > .job-explorer {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .dashboard-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .dashboard-brand {
+    flex: 1;
+  }
+
+  .dashboard-brand h1 {
+    font-size: 17px;
+  }
+
+  .dashboard-add-button {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .dashboard-nav {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .dashboard-nav button {
+    white-space: nowrap;
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .dashboard-main {
+    padding: 15px;
+  }
+}
