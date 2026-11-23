@@ -19,8 +19,7 @@ function isRecord(
 }
 
 function normalizeJobListing(
-  value: unknown,
-  source: JobSource
+  value: unknown
 ): JobListing | null {
   if (!isRecord(value)) {
     return null;
@@ -57,20 +56,17 @@ function normalizeJobListing(
       ? value.url
       : undefined;
 
-  // Lowongan API harus memiliki tautan asli.
-  if (source === "api" && !url) {
-    return null;
-  }
-
-  const tags = Array.isArray(value.tags)
+  const rawTags: unknown[] = Array.isArray(value.tags)
     ? value.tags
-        .filter(
-          (tag): tag is string =>
-            typeof tag === "string"
-        )
-        .map((tag) => tag.trim())
-        .filter(Boolean)
     : [];
+
+  const tags = rawTags
+    .filter(
+      (tag): tag is string =>
+        typeof tag === "string"
+    )
+    .map((tag) => tag.trim())
+    .filter(Boolean);
 
   return {
     id,
@@ -102,8 +98,7 @@ function normalizeJobListing(
 
 async function fetchJobsFromUrl(
   url: string,
-  signal: AbortSignal,
-  source: JobSource
+  signal: AbortSignal
 ): Promise<JobListing[]> {
   const response = await fetch(url, { signal });
 
@@ -116,17 +111,23 @@ async function fetchJobsFromUrl(
   const data: unknown = await response.json();
 
   if (!isRecord(data) || !Array.isArray(data.jobs)) {
-    throw new Error("Format respons API tidak valid.");
+    throw new Error(
+      "Format respons API tidak valid."
+    );
   }
 
-  const jobs = data.jobs
-    .map((job) => normalizeJobListing(job, source))
+  const rawJobs: unknown[] = data.jobs;
+
+  const jobs = rawJobs
+    .map((job) => normalizeJobListing(job))
     .filter(
       (job): job is JobListing => job !== null
     );
 
-  if (data.jobs.length > 0 && jobs.length === 0) {
-    throw new Error("Tidak ada data lowongan valid.");
+  if (rawJobs.length > 0 && jobs.length === 0) {
+    throw new Error(
+      "Tidak ada data lowongan valid."
+    );
   }
 
   return jobs;
@@ -141,5 +142,5 @@ export async function getJobListings(
       ? REMOTIVE_API_URL
       : FALLBACK_URL;
 
-  return fetchJobsFromUrl(url, signal, source);
+  return fetchJobsFromUrl(url, signal);
 }

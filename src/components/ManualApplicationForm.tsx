@@ -15,6 +15,10 @@ import type {
 
 import { isDuplicateApplication } from "../utils/duplicateCheck";
 
+// ==========================================
+// PROPS
+// ==========================================
+
 interface ManualApplicationFormProps {
   applications: Application[];
   setApplications: Dispatch<SetStateAction<Application[]>>;
@@ -25,9 +29,17 @@ type InitialStatus = Extract<
   "WISHLIST" | "APPLIED"
 >;
 
+// ==========================================
+// VALIDATION HELPERS
+// ==========================================
+
 // Validasi mode kerja
 function isValidWorkMode(value: string): value is WorkMode {
-  return ["Remote", "Hybrid", "Onsite"].includes(value);
+  return (
+    value === "Remote" ||
+    value === "Hybrid" ||
+    value === "Onsite"
+  );
 }
 
 // Validasi status awal
@@ -37,11 +49,13 @@ function isValidInitialStatus(
   return value === "WISHLIST" || value === "APPLIED";
 }
 
-// Validasi tanggal
+// Validasi tanggal YYYY-MM-DD
 function isValidDate(value: string): boolean {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
 
-  if (!match) return false;
+  if (!match) {
+    return false;
+  }
 
   const year = Number(match[1]);
   const month = Number(match[2]);
@@ -56,10 +70,37 @@ function isValidDate(value: string): boolean {
   );
 }
 
+// Mengolah skill dan menghapus duplikat
+function parseRequiredSkills(value: string): string[] {
+  const uniqueSkills = new Map<string, string>();
+
+  value.split(",").forEach((skill) => {
+    const trimmedSkill = skill.trim();
+
+    if (trimmedSkill) {
+      const normalizedSkill = trimmedSkill.toLowerCase();
+
+      if (!uniqueSkills.has(normalizedSkill)) {
+        uniqueSkills.set(normalizedSkill, trimmedSkill);
+      }
+    }
+  });
+
+  return Array.from(uniqueSkills.values());
+}
+
+// ==========================================
+// MANUAL APPLICATION FORM
+// ==========================================
+
 export function ManualApplicationForm({
   applications,
   setApplications,
 }: ManualApplicationFormProps) {
+  // ========================================
+  // FORM STATE
+  // ========================================
+
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
 
@@ -78,12 +119,19 @@ export function ManualApplicationForm({
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Referensi input untuk auto-focus
-const companyRef = useRef<HTMLInputElement>(null);
-const roleRef = useRef<HTMLInputElement>(null);
-const requiredSkillsRef = useRef<HTMLInputElement>(null);
-const cvRef = useRef<HTMLInputElement>(null);
-const dateRef = useRef<HTMLInputElement>(null);
+  // ========================================
+  // INPUT REFS - AUTO FOCUS
+  // ========================================
+
+  const companyRef = useRef<HTMLInputElement>(null);
+  const roleRef = useRef<HTMLInputElement>(null);
+  const requiredSkillsRef = useRef<HTMLInputElement>(null);
+  const cvRef = useRef<HTMLInputElement>(null);
+  const dateRef = useRef<HTMLInputElement>(null);
+
+  // ========================================
+  // HANDLE SUBMIT
+  // ========================================
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -91,7 +139,7 @@ const dateRef = useRef<HTMLInputElement>(null);
     setError("");
     setSuccess("");
 
-    // 1. Validasi perusahaan
+    // 1. Validasi nama perusahaan
     if (!company.trim()) {
       setError("Nama perusahaan wajib diisi.");
       companyRef.current?.focus();
@@ -105,7 +153,7 @@ const dateRef = useRef<HTMLInputElement>(null);
       return;
     }
 
-    // 3. Validasi duplikat
+    // 3. Validasi duplikat perusahaan dan posisi
     if (
       isDuplicateApplication(
         applications,
@@ -120,26 +168,37 @@ const dateRef = useRef<HTMLInputElement>(null);
       companyRef.current?.focus();
       return;
     }
-// 4. Validasi Required Skills
-if (!requiredSkills.trim()) {
-  setError("Required Skills wajib diisi.");
-  requiredSkillsRef.current?.focus();
-  return;
-}
-    // 4. Validasi khusus APPLIED
+
+    // 4. Mengolah Required Skills
+    const parsedSkills = parseRequiredSkills(requiredSkills);
+
+    // 5. Validasi Required Skills
+    if (parsedSkills.length === 0) {
+      setError(
+        "Masukkan minimal satu skill yang valid."
+      );
+
+      requiredSkillsRef.current?.focus();
+      return;
+    }
+
+    // 6. Validasi khusus status APPLIED
     if (status === "APPLIED") {
+      // Validasi versi CV
       if (!cvVersion.trim()) {
         setError("Versi CV wajib diisi.");
         cvRef.current?.focus();
         return;
       }
 
+      // Validasi tanggal melamar
       if (!appliedDate) {
         setError("Tanggal melamar wajib diisi.");
         dateRef.current?.focus();
         return;
       }
 
+      // Validasi format dan tanggal kalender
       if (!isValidDate(appliedDate)) {
         setError("Tanggal melamar tidak valid.");
         dateRef.current?.focus();
@@ -147,23 +206,12 @@ if (!requiredSkills.trim()) {
       }
     }
 
-    // 5. Mengolah required skills
-    const parsedSkills = Array.from(
-      new Map(
-        requiredSkills
-          .split(",")
-          .map((skill) => skill.trim())
-          .filter(Boolean)
-          .map((skill) => [
-            skill.toLowerCase(),
-            skill,
-          ])
-      ).values()
-    );
+    // ========================================
+    // CREATE APPLICATION
+    // ========================================
 
     const now = new Date().toISOString();
 
-    // 6. Membuat data lamaran baru
     const newApplication: Application = {
       id: crypto.randomUUID(),
 
@@ -195,13 +243,19 @@ if (!requiredSkills.trim()) {
       ],
     };
 
-    // 7. Menyimpan data secara immutable
+    // ========================================
+    // SAVE APPLICATION
+    // ========================================
+
     setApplications((previousApplications) => [
       ...previousApplications,
       newApplication,
     ]);
 
-    // 8. Reset form
+    // ========================================
+    // RESET FORM
+    // ========================================
+
     setCompany("");
     setRole("");
     setWorkMode("Remote");
@@ -210,10 +264,15 @@ if (!requiredSkills.trim()) {
     setCvVersion("");
     setAppliedDate("");
 
+    setError("");
     setSuccess("Lamaran berhasil ditambahkan ke daftar.");
 
     companyRef.current?.focus();
   }
+
+  // ========================================
+  // RENDER
+  // ========================================
 
   return (
     <section className="manual-application">
@@ -227,7 +286,8 @@ if (!requiredSkills.trim()) {
       </div>
 
       <form onSubmit={handleSubmit}>
-        {/* Nama perusahaan */}
+        {/* NAMA PERUSAHAAN */}
+
         <div className="form-field">
           <label htmlFor="manual-company">
             Nama Perusahaan
@@ -245,7 +305,8 @@ if (!requiredSkills.trim()) {
           />
         </div>
 
-        {/* Posisi */}
+        {/* POSISI / ROLE */}
+
         <div className="form-field">
           <label htmlFor="manual-role">
             Posisi / Role
@@ -263,7 +324,8 @@ if (!requiredSkills.trim()) {
           />
         </div>
 
-        {/* Mode kerja */}
+        {/* MODE KERJA */}
+
         <div className="form-field">
           <label htmlFor="manual-workmode">
             Mode Kerja
@@ -286,7 +348,8 @@ if (!requiredSkills.trim()) {
           </select>
         </div>
 
-        {/* Status awal */}
+        {/* STATUS AWAL */}
+
         <div className="form-field">
           <label htmlFor="manual-status">
             Status Awal
@@ -308,33 +371,37 @@ if (!requiredSkills.trim()) {
           </select>
         </div>
 
-        {/* Required skills */}
+        {/* REQUIRED SKILLS */}
+
         <div className="form-field">
           <label htmlFor="manual-skills">
             Required Skills
           </label>
 
-<input
-  ref={requiredSkillsRef}
-  id="manual-skills"
-  type="text"
-  value={requiredSkills}
+          <input
+            ref={requiredSkillsRef}
+            id="manual-skills"
+            type="text"
+            value={requiredSkills}
             onChange={(event) =>
               setRequiredSkills(event.target.value)
             }
             placeholder="React, TypeScript, CSS"
           />
 
-<small>
-  Pisahkan setiap skill menggunakan koma.
-  Contoh: React, TypeScript, CSS.
-</small>
+          <small>
+            Pisahkan setiap skill menggunakan koma.
+            Contoh: React, TypeScript, CSS.
+          </small>
         </div>
 
-        {/* Input kondisional APPLIED */}
+        {/* FIELD TAMBAHAN APPLIED */}
+
         {status === "APPLIED" && (
           <div className="applied-fields">
             <h3>Informasi Lamaran</h3>
+
+            {/* VERSI CV */}
 
             <div className="form-field">
               <label htmlFor="manual-cv">
@@ -352,6 +419,8 @@ if (!requiredSkills.trim()) {
                 placeholder="Contoh: CV_V2"
               />
             </div>
+
+            {/* TANGGAL MELAMAR */}
 
             <div className="form-field">
               <label htmlFor="manual-date">
@@ -371,19 +440,23 @@ if (!requiredSkills.trim()) {
           </div>
         )}
 
-        {/* Pesan error */}
+        {/* PESAN ERROR */}
+
         {error && (
           <p className="form-error" role="alert">
             {error}
           </p>
         )}
 
-        {/* Pesan berhasil */}
+        {/* PESAN BERHASIL */}
+
         {success && (
           <p className="form-success" role="status">
             {success}
           </p>
         )}
+
+        {/* TOMBOL SIMPAN */}
 
         <button type="submit">
           Simpan Lamaran
