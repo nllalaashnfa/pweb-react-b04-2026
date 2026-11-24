@@ -18,7 +18,15 @@
       "category": "Software Development",
       "candidate_required_location": "Jakarta (Onsite)",
       "salary": "Rp 3.500.000",
-      "tags": ["JavaScript", "HTML", "CSS", "React", "Git", "Java"]
+      "tags": [
+  "JavaScript",
+  "HTML",
+  "CSS",
+  "React",
+  "Git",
+  "Java",
+  "Docker"
+]
     },
     {
       "id": 1003,
