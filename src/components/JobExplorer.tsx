@@ -23,7 +23,7 @@ import {
 
 import { isDuplicateApplication } from "../utils/duplicateCheck";
 
-import { JobSkillMatch } from "./JobSkillMatch";
+import { JobCard } from "./JobCard";
 
 // Props dari App.tsx
 interface JobExplorerProps {
@@ -40,12 +40,12 @@ interface ScoredJob {
   originalIndex: number;
 }
 
-// Menentukan mode kerja
+// Menentukan mode kerja berdasarkan sumber data
 function getKnownWorkMode(
   job: JobListing,
   source: JobSource
 ): WorkMode | null {
-  // Remotive menyediakan lowongan remote
+  // Lowongan Remotive merupakan lowongan remote
   if (source === "api") {
     return "Remote";
   }
@@ -68,7 +68,6 @@ function getKnownWorkMode(
     return "Remote";
   }
 
-  // Jika tidak diketahui, pengguna harus memilih
   return null;
 }
 
@@ -77,17 +76,27 @@ export function JobExplorer({
   applications,
   setApplications,
 }: JobExplorerProps) {
+
   // Sumber data
-  const [source, setSource] = useState<JobSource>("api");
+  const [source, setSource] =
+    useState<JobSource>("api");
 
   // Data lowongan
-  const [jobs, setJobs] = useState<JobListing[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [retryCount, setRetryCount] = useState(0);
+  const [jobs, setJobs] =
+    useState<JobListing[]>([]);
+
+  const [isLoading, setIsLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState<string | null>(null);
+
+  const [retryCount, setRetryCount] =
+    useState(0);
 
   // Pencarian
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] =
+    useState("");
 
   // Filter kategori
   const [selectedCategory, setSelectedCategory] =
@@ -97,11 +106,11 @@ export function JobExplorer({
   const [sortMode, setSortMode] =
     useState<SortMode>("default");
 
-  // Pilihan mode kerja fallback
+  // Pilihan mode kerja untuk fallback
   const [selectedWorkModes, setSelectedWorkModes] =
     useState<Record<number, WorkMode>>({});
 
-  // Debounce 400 ms
+  // Debounce pencarian 400 ms
   const debouncedSearchTerm = useDebounce(
     searchTerm,
     400
@@ -156,7 +165,7 @@ export function JobExplorer({
     })
   );
 
-  // Mengurutkan berdasarkan Skill Match
+  // Mengurutkan lowongan berdasarkan Skill Match
   const sortedJobs = [...scoredJobs].sort((a, b) => {
     if (sortMode === "default") {
       return a.originalIndex - b.originalIndex;
@@ -229,13 +238,19 @@ export function JobExplorer({
 
     const newApplication: Application = {
       id: crypto.randomUUID(),
+
       company: job.company_name,
       role: job.title,
+
       workMode,
       status: "WISHLIST",
+
       requiredSkills: [...job.tags],
+
       lastUpdatedAt: now,
+
       checklist: [],
+
       activityLogs: [
         {
           id: crypto.randomUUID(),
@@ -266,10 +281,12 @@ export function JobExplorer({
 
   return (
     <section className="job-explorer">
+
       {/* Header */}
       <div className="job-explorer-header">
         <div>
           <h2>Jelajahi Lowongan Magang</h2>
+
           <p>
             Temukan lowongan yang sesuai dengan skill kamu.
           </p>
@@ -306,8 +323,10 @@ export function JobExplorer({
         </div>
       </div>
 
-      {/* Pencarian */}
+      {/* Pencarian dan filter */}
       <div className="job-search">
+
+        {/* Pencarian */}
         <label htmlFor="job-search-input">
           Cari Lowongan Magang
         </label>
@@ -375,7 +394,10 @@ export function JobExplorer({
             </option>
 
             {categories.map((category) => (
-              <option key={category} value={category}>
+              <option
+                key={category}
+                value={category}
+              >
                 {category}
               </option>
             ))}
@@ -394,6 +416,7 @@ export function JobExplorer({
       {!isLoading && error && (
         <div className="job-error" role="alert">
           <h3>Gagal Memuat Lowongan</h3>
+
           <p>{error}</p>
 
           <div className="job-actions">
@@ -466,10 +489,7 @@ export function JobExplorer({
                 const selectedWorkMode =
                   selectedWorkModes[job.id];
 
-                const workMode =
-                  knownWorkMode ?? selectedWorkMode;
-
-                // Cek apakah sudah dilamar
+                // Memeriksa apakah sudah tersimpan
                 const alreadySaved =
                   isDuplicateApplication(
                     applications,
@@ -478,152 +498,37 @@ export function JobExplorer({
                   );
 
                 return (
-                  <article
+                  <JobCard
                     key={job.id}
-                    className="job-card"
-                  >
-                    <h3>{job.title}</h3>
+                    job={job}
+                    match={match}
+                    source={source}
+                    knownWorkMode={knownWorkMode}
+                    selectedWorkMode={selectedWorkMode}
+                    alreadySaved={alreadySaved}
 
-{source === "api" && (
-  <p className="job-source-link">
-    <strong>Sumber:</strong> Remotive{" "}
-    {job.url && (
-      <a
-        href={job.url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Lihat lowongan asli
-      </a>
-    )}
-  </p>
-)}
+                    onSelectWorkMode={(
+                      jobId,
+                      workMode
+                    ) => {
+                      setSelectedWorkModes(
+                        (previous) => ({
+                          ...previous,
+                          [jobId]: workMode,
+                        })
+                      );
+                    }}
 
-
-                    <p>
-                      <strong>Perusahaan:</strong>{" "}
-                      {job.company_name}
-                    </p>
-
-                    <p>
-                      <strong>Lokasi:</strong>{" "}
-                      {job.candidate_required_location}
-                    </p>
-
-                    <p>
-                      <strong>Kategori:</strong>{" "}
-                      {job.category}
-                    </p>
-
-                    <p>
-                      <strong>Gaji/Uang Saku:</strong>{" "}
-                      {job.salary || "Tidak dicantumkan"}
-                    </p>
-
-                    {/* Required Skills */}
-                    <div className="job-skills">
-                      <strong>Required Skills:</strong>
-
-                      {job.tags.length > 0 ? (
-                        <div className="job-tags">
-                          {job.tags.map((skill) => (
-                            <span
-                              key={skill}
-                              className="job-tag"
-                            >
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <p>Tidak dicantumkan.</p>
-                      )}
-                    </div>
-
-                    {/* Skill Match */}
-                    <JobSkillMatch result={match} />
-
-                    {/* Mode kerja */}
-                    <div className="job-save-control">
-                      <p>
-                        <strong>Mode Kerja:</strong>{" "}
-                        {workMode ?? "Belum ditentukan"}
-                      </p>
-
-                      {!knownWorkMode && (
-                        <>
-                          <label
-                            htmlFor={`work-mode-${job.id}`}
-                          >
-                            Pilih Mode Kerja
-                          </label>
-
-                          <select
-                            id={`work-mode-${job.id}`}
-                            value={selectedWorkMode ?? ""}
-                            disabled={alreadySaved}
-                            onChange={(event) => {
-                              const value = event.target.value;
-
-                              if (
-                                value === "Remote" ||
-                                value === "Hybrid" ||
-                                value === "Onsite"
-                              ) {
-                                setSelectedWorkModes(
-                                  (previous) => ({
-                                    ...previous,
-                                    [job.id]: value,
-                                  })
-                                );
-                              }
-                            }}
-                          >
-                            <option value="">
-                              Pilih mode kerja
-                            </option>
-
-                            <option value="Remote">
-                              Remote
-                            </option>
-
-                            <option value="Hybrid">
-                              Hybrid
-                            </option>
-
-                            <option value="Onsite">
-                              Onsite
-                            </option>
-                          </select>
-                        </>
-                      )}
-
-                      {/* Tombol Wishlist */}
-                      <button
-                        type="button"
-                        disabled={
-                          alreadySaved || !workMode
-                        }
-                        onClick={() => {
-                          if (workMode) {
-                            handleAddToWishlist(
-                              job,
-                              workMode
-                            );
-                          }
-                        }}
-                      >
-                        {alreadySaved
-  ? "Sudah Dilamar"
-  : "Simpan ke Wishlist"}
-                      </button>
-                    </div>
-                  </article>
+                    onAddToWishlist={
+                      handleAddToWishlist
+                    }
+                  />
                 );
               })}
             </div>
           </>
         )}
+
     </section>
   );
 }
