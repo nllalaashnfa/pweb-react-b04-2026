@@ -20,6 +20,8 @@
   --surface: #FFFFFF;
   --text: #02000D;
   --muted: #647080;
+  --heading: #07203F;
+  --surface-alt: #F8FAFC;
   --border: rgba(7, 32, 63, 0.14);
 
   --success: #2F7652;
@@ -339,7 +341,7 @@ img {
 .skill-profile h2 {
   margin: 0 0 12px;
 
-  color: var(--navy);
+  color: var(--heading);
   font-size: 21px;
   font-weight: 800;
 }
@@ -368,7 +370,7 @@ img {
   border: 1px solid var(--border);
   border-radius: 9px;
 
-  background: white;
+  background: var(--surface);
   outline: none;
 }
 
@@ -413,7 +415,7 @@ img {
   border-radius: 7px;
 
   background: var(--beige);
-  color: var(--navy);
+  color: var(--heading);
 
   font-size: 12px;
   font-weight: 600;
@@ -448,7 +450,7 @@ img {
 .job-explorer-header h2 {
   margin: 0 0 6px;
 
-  color: var(--navy);
+  color: var(--heading);
   font-size: 23px;
   font-weight: 800;
 }
@@ -472,7 +474,7 @@ img {
 .job-search label,
 .category-filter label,
 .sort-filter label {
-  color: var(--navy);
+  color: var(--heading);
   font-weight: 700;
 }
 
@@ -504,7 +506,7 @@ img {
   border: 1px solid var(--border);
   border-radius: 9px;
 
-  background: white;
+  background: var(--surface);
   color: var(--text);
 
   outline: none;
@@ -565,8 +567,8 @@ img {
   border: 1px solid var(--border);
   border-radius: 9px;
 
-  background: white;
-  color: var(--navy);
+  background: var(--surface);
+  color: var(--heading);
 
   outline: none;
   cursor: pointer;
@@ -637,7 +639,7 @@ img {
 .job-card h3 {
   margin: 0 0 15px;
 
-  color: var(--navy);
+  color: var(--heading);
   font-size: 17px;
   line-height: 1.45;
 }
@@ -652,7 +654,7 @@ img {
 }
 
 .job-card strong {
-  color: var(--navy);
+  color: var(--heading);
 }
 
 /* =====================================================
@@ -665,7 +667,7 @@ img {
 
 .job-skills > strong {
   display: block;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .job-tags {
@@ -685,7 +687,7 @@ img {
   border-radius: 6px;
 
   background: var(--beige);
-  color: var(--navy);
+  color: var(--heading);
 
   font-size: 12px;
   line-height: 1.5;
@@ -769,7 +771,7 @@ img {
 }
 
 .skill-match-details strong {
-  color: var(--navy);
+  color: var(--heading);
 }
 
 /* =====================================================
@@ -817,11 +819,11 @@ img {
   border: 1px solid var(--border);
   border-radius: var(--radius);
 
-  background: white;
+  background: var(--surface);
 }
 
 .job-message {
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .job-error {
@@ -874,7 +876,7 @@ img {
 .manual-application-header h2 {
   margin: 0 0 7px;
 
-  color: var(--navy);
+  color: var(--heading);
   font-size: 22px;
 }
 
@@ -903,7 +905,7 @@ img {
 }
 
 .form-field label {
-  color: var(--navy);
+  color: var(--heading);
   font-size: 13px;
   font-weight: 700;
 }
@@ -918,7 +920,7 @@ img {
   border: 1px solid var(--border);
   border-radius: 8px;
 
-  background: white;
+  background: var(--surface);
   color: var(--text);
 
   outline: none;
@@ -960,7 +962,7 @@ img {
   grid-column: 1 / -1;
 
   margin: 0;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 /* Form messages */
@@ -1031,7 +1033,7 @@ img {
 .application-tracker-header h2 {
   margin: 0 0 6px;
 
-  color: var(--navy);
+  color: var(--heading);
   font-size: 22px;
 }
 
@@ -1047,7 +1049,7 @@ img {
   border-radius: 20px;
 
   background: var(--beige);
-  color: var(--navy);
+  color: var(--heading);
 
   font-weight: 800;
   white-space: nowrap;
@@ -1093,7 +1095,7 @@ img {
 .application-card-header h3 {
   margin: 0;
 
-  color: var(--navy);
+  color: var(--heading);
   font-size: 17px;
 
   overflow-wrap: anywhere;
@@ -1106,7 +1108,7 @@ img {
   border-radius: 20px;
 
   background: var(--beige);
-  color: var(--navy);
+  color: var(--heading);
 
   font-size: 11px;
   font-weight: 800;
@@ -1120,7 +1122,7 @@ img {
 }
 
 .application-card strong {
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .application-skills {
@@ -1151,7 +1153,7 @@ img {
 }
 
 .application-empty h3 {
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .application-empty p {
@@ -1192,7 +1194,7 @@ img {
   border: 1px solid var(--terracotta);
   border-radius: 8px;
 
-  background: white;
+  background: var(--surface);
   color: var(--terracotta);
 
   font-weight: 700;
@@ -1369,13 +1371,10 @@ textarea:focus-visible {
     display: flex;
     width: 100%;
 
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-wrap: wrap;
 
     justify-content: flex-start;
     gap: 5px;
-
-    padding-bottom: 5px;
   }
 
   .dashboard-nav button {
@@ -1638,7 +1637,7 @@ textarea:focus-visible {
   border-left: 5px solid var(--terracotta);
   border-radius: var(--radius);
   background: var(--danger-bg);
-  color: var(--navy);
+  color: var(--heading);
   box-shadow: var(--shadow);
 }
 
@@ -1686,7 +1685,7 @@ textarea:focus-visible {
   padding: 5px 10px;
   border: 1px solid var(--terracotta);
   border-radius: 6px;
-  background: white;
+  background: var(--surface);
   color: var(--terracotta);
   font-size: 12px;
   font-weight: 700;
@@ -1723,7 +1722,7 @@ textarea:focus-visible {
 .pipeline-field label {
   font-size: 12px;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .pipeline-field input,
@@ -1733,7 +1732,7 @@ textarea:focus-visible {
   padding: 9px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
   color: var(--text);
   outline: none;
   transition: var(--transition);
@@ -1754,7 +1753,7 @@ textarea:focus-visible {
   border: 1px solid var(--peach);
   border-radius: 8px;
   background: var(--beige);
-  color: var(--navy);
+  color: var(--heading);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -1847,7 +1846,7 @@ textarea:focus-visible {
   margin-bottom: 14px;
   padding: 10px 12px;
   border-radius: 10px;
-  background: #F8FAFC;
+  background: var(--surface-alt);
   border: 1px solid var(--border);
 }
 
@@ -1865,7 +1864,7 @@ textarea:focus-visible {
 
 .metric-item strong {
   font-size: 13px;
-  color: var(--navy);
+  color: var(--heading);
   overflow-wrap: anywhere;
 }
 
@@ -1884,7 +1883,7 @@ textarea:focus-visible {
 .application-extra-info {
   margin: 0 0 8px;
   font-size: 13px;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .application-card-actions {
@@ -1931,7 +1930,7 @@ textarea:focus-visible {
   padding: 9px 14px;
   border: 1px solid var(--terracotta);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
   color: var(--terracotta);
   font-weight: 700;
 }
@@ -1979,15 +1978,15 @@ textarea:focus-visible {
   padding: 8px 14px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
-  color: var(--navy);
+  background: var(--surface);
+  color: var(--heading);
   font-size: 13px;
   font-weight: 700;
   transition: var(--transition);
 }
 
 .btn-secondary-action:hover {
-  background: #F1F5F9;
+  background: var(--surface-alt);
 }
 
 .btn-danger-outline {
@@ -2042,7 +2041,7 @@ textarea:focus-visible {
   gap: 16px;
   padding: 20px 26px;
   border-bottom: 1px solid var(--border);
-  background: #FAFBFD;
+  background: var(--surface-alt);
 }
 
 .detail-identity {
@@ -2072,7 +2071,7 @@ textarea:focus-visible {
 
 .detail-title-group h2 {
   margin: 0;
-  color: var(--navy);
+  color: var(--heading);
   font-size: 18px;
   font-weight: 800;
   overflow-wrap: anywhere;
@@ -2102,8 +2101,8 @@ textarea:focus-visible {
   justify-content: center;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
-  color: var(--navy);
+  background: var(--surface);
+  color: var(--heading);
   font-size: 20px;
   line-height: 1;
 }
@@ -2171,7 +2170,7 @@ textarea:focus-visible {
 }
 
 .stepper-item.completed {
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .stepper-item.completed .stepper-bar {
@@ -2191,10 +2190,10 @@ textarea:focus-visible {
   margin: 0;
   padding: 10px 12px;
   border-radius: 8px;
-  background: #F8FAFC;
+  background: var(--surface-alt);
   border: 1px solid var(--border);
   font-size: 13px;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 /* Transisi Status Box */
@@ -2203,7 +2202,7 @@ textarea:focus-visible {
   padding: 16px;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: #F8FAFC;
+  background: var(--surface-alt);
 }
 
 .transition-final-message {
@@ -2221,7 +2220,7 @@ textarea:focus-visible {
   margin-bottom: 14px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .transition-options {
@@ -2234,8 +2233,8 @@ textarea:focus-visible {
   padding: 7px 14px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
-  color: var(--navy);
+  background: var(--surface);
+  color: var(--heading);
   font-size: 13px;
   font-weight: 700;
   transition: var(--transition);
@@ -2279,7 +2278,7 @@ textarea:focus-visible {
   padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
   color: var(--text);
 }
 
@@ -2288,10 +2287,10 @@ textarea:focus-visible {
   margin: 0;
   padding: 9px 12px;
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   font-size: 13px;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .transition-submit-btn {
@@ -2355,7 +2354,7 @@ textarea:focus-visible {
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
 }
 
 .checklist-item-label {
@@ -2366,7 +2365,7 @@ textarea:focus-visible {
   min-width: 0;
   cursor: pointer;
   font-size: 13px;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .checklist-item-label input {
@@ -2410,7 +2409,7 @@ textarea:focus-visible {
   padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
 }
 
 /* Latihan Interview Timer (Fitur 5) */
@@ -2419,7 +2418,7 @@ textarea:focus-visible {
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: #FAFBFD;
+  background: var(--surface-alt);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -2451,7 +2450,7 @@ textarea:focus-visible {
   margin: 0;
   font-size: 14px;
   line-height: 1.55;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .interview-timer-row {
@@ -2466,7 +2465,7 @@ textarea:focus-visible {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 28px;
   font-weight: 800;
-  color: var(--navy);
+  color: var(--heading);
   letter-spacing: 0.04em;
 }
 
@@ -2533,7 +2532,7 @@ textarea:focus-visible {
 .activity-content p {
   margin: 2px 0 0;
   font-size: 13px;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 /* Responsive adjustments for War Room & Detail Modal */
@@ -2598,7 +2597,7 @@ textarea:focus-visible {
 
 .calendar-export-info strong {
   font-size: 13px;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .calendar-export-info span {
@@ -2634,7 +2633,7 @@ textarea:focus-visible {
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: #FAFBFD;
+  background: var(--surface-alt);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -2660,7 +2659,7 @@ textarea:focus-visible {
 .followup-header p {
   margin: 4px 0 0;
   font-size: 13px;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .followup-controls {
@@ -2680,7 +2679,7 @@ textarea:focus-visible {
 .followup-editor label {
   font-size: 12px;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .followup-field select,
@@ -2690,7 +2689,7 @@ textarea:focus-visible {
   padding: 7px 10px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
   color: var(--text);
 }
 
@@ -2705,7 +2704,7 @@ textarea:focus-visible {
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
   color: var(--text);
   font-size: 13px;
   line-height: 1.5;
@@ -2729,4 +2728,106 @@ textarea:focus-visible {
   .followup-controls {
     grid-template-columns: 1fr;
   }
+}
+
+/* =====================================================
+   FITUR 7. DASHBOARD STATISTIK & OFFER COMPARATOR
+===================================================== */
+
+.view-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  gap: 14px;
+}
+
+.stats-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stats-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stats-value {
+  color: var(--heading);
+  font-size: 30px;
+}
+
+.offer-comparator h3 {
+  margin: 0;
+  color: var(--heading);
+}
+
+.offer-formula {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.offer-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 14px;
+}
+
+.offer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.offer-column.offer-best {
+  border-color: var(--success);
+}
+
+.offer-column label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.offer-badge {
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--success-bg);
+  color: var(--success);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.offer-column dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  margin: 0;
+}
+
+.offer-column dt {
+  color: var(--muted);
+}
+
+.offer-column dd {
+  margin: 0;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.offer-total {
+  color: var(--heading);
+  font-size: 22px;
+  font-weight: 800;
 }

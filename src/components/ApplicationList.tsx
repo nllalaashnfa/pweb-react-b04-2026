@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
 import type {
@@ -15,11 +15,7 @@ interface ApplicationListProps {
   applications: Application[];
   setApplications: Dispatch<SetStateAction<Application[]>>;
   kaptenSkills: string[];
-}
-
-interface PendingDeletion {
-  application: Application;
-  originalIndex: number;
+  onDelete: (applicationId: string) => void;
 }
 
 type StatusFilter = "ALL" | ApplicationStatus;
@@ -93,9 +89,8 @@ export function ApplicationList({
   applications,
   setApplications,
   kaptenSkills,
+  onDelete,
 }: ApplicationListProps) {
-  const [pendingDeletion, setPendingDeletion] =
-    useState<PendingDeletion | null>(null);
   const [selectedApplicationId, setSelectedApplicationId] =
     useState<string | null>(null);
 
@@ -112,19 +107,6 @@ export function ApplicationList({
   const [currentTimeMs, setCurrentTimeMs] = useState(() =>
     Date.now()
   );
-
-  // Menyimpan ID timer Undo
-  const undoTimerRef =
-    useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Membersihkan timer Undo ketika komponen dilepas
-  useEffect(() => {
-    return () => {
-      if (undoTimerRef.current !== null) {
-        clearTimeout(undoTimerRef.current);
-      }
-    };
-  }, []);
 
   // Menyegarkan waktu cek ghosting setiap 1 menit secara bersih
   useEffect(() => {
@@ -278,81 +260,13 @@ export function ApplicationList({
     });
   }
 
-  // Menghapus lamaran (dengan Undo 5 detik)
+  // Menghapus lamaran: tutup modal jika terbuka, lalu Undo 5 detik diurus App.tsx
   function handleDelete(applicationId: string) {
-    const originalIndex = applications.findIndex(
-      (application) => application.id === applicationId
-    );
-
-    if (originalIndex === -1) {
-      return;
-    }
-
-    const deletedApplication = applications[originalIndex];
-
     if (selectedApplicationId === applicationId) {
       setSelectedApplicationId(null);
     }
 
-    // Membersihkan timer sebelumnya
-    if (undoTimerRef.current !== null) {
-      clearTimeout(undoTimerRef.current);
-    }
-
-    // Menghapus lamaran dari LocalStorage melalui state
-    setApplications((previousApplications) =>
-      previousApplications.filter(
-        (application) => application.id !== applicationId
-      )
-    );
-
-    // Menyimpan data untuk fitur Undo
-    setPendingDeletion({
-      application: deletedApplication,
-      originalIndex,
-    });
-
-    // Timer Undo selama 5 detik
-    undoTimerRef.current = setTimeout(() => {
-      setPendingDeletion(null);
-      undoTimerRef.current = null;
-    }, 5000);
-  }
-
-  // Mengembalikan lamaran yang dihapus
-  function handleUndo() {
-    if (!pendingDeletion) {
-      return;
-    }
-
-    if (undoTimerRef.current !== null) {
-      clearTimeout(undoTimerRef.current);
-      undoTimerRef.current = null;
-    }
-
-    const { application, originalIndex } = pendingDeletion;
-
-    setApplications((previousApplications) => {
-      if (
-        previousApplications.some(
-          (item) => item.id === application.id
-        )
-      ) {
-        return previousApplications;
-      }
-
-      const restoredApplications = [...previousApplications];
-
-      restoredApplications.splice(
-        Math.min(originalIndex, restoredApplications.length),
-        0,
-        application
-      );
-
-      return restoredApplications;
-    });
-
-    setPendingDeletion(null);
+    onDelete(applicationId);
   }
 
   function handleResetFilters() {
@@ -737,24 +651,6 @@ export function ApplicationList({
           onSimulateGhosting={handleSimulateGhosting}
           onDelete={handleDelete}
         />
-      )}
-
-      {/* Notifikasi Undo */}
-      {pendingDeletion && (
-        <div
-          className="undo-toast"
-          role="status"
-          aria-live="polite"
-        >
-          <span>
-            {pendingDeletion.application.role} berhasil
-            dihapus.
-          </span>
-
-          <button type="button" onClick={handleUndo}>
-            Undo
-          </button>
-        </div>
       )}
     </section>
   );

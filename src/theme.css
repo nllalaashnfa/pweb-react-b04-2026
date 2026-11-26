@@ -1,0 +1,69 @@
+/* =====================================================
+   BONUS. DARK MODE
+   Light values live in App.css :root. ThemeToggle sets
+   <html data-theme="dark">, which swaps the variables below.
+===================================================== */
+
+:root[data-theme="dark"] {
+  /* native inputs, selects and scrollbars follow the theme */
+  color-scheme: dark;
+
+  --navy: #1E3A64;
+
+  --background: #0F1623;
+  --surface: #182233;
+  --surface-alt: #1F2B3F;
+  --text: #E6E9EF;
+  --heading: #EBDED4;
+  --muted: #9AA6B8;
+  --border: rgba(235, 222, 212, 0.14);
+
+  /* tints behind chips, pills, banners: dark, with brighter text on top */
+  --beige: #2A3850;
+  --success: #6CC495;
+  --success-bg: #1C3328;
+  --warning: #E0B060;
+  --warning-bg: #3A2F1A;
+  --danger: #E0927A;
+  --danger-bg: #3A2320;
+
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+
+  color: var(--text);
+  background: var(--background);
+}
+
+/* the one panel that keeps a hardcoded light-blue tint in light mode */
+:root[data-theme="dark"] .calendar-export-box {
+  background: var(--surface-alt);
+}
+
+/* Header right side: theme toggle + "Catat Lamaran" */
+.header-actions {
+  justify-self: end;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Toggle button in the header */
+.theme-toggle {
+  padding: 10px 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9px;
+
+  background: transparent;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: var(--transition);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
