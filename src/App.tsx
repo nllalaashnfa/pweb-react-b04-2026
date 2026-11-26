@@ -98,10 +98,11 @@ function App() {
 
         {/* PIPELINE LAMARAN */}
         {activeView === "pipeline" && (
-<ApplicationList
-  applications={applications}
-  setApplications={setApplications}
-/>
+          <ApplicationList
+            applications={applications}
+            setApplications={setApplications}
+            kaptenSkills={kaptenSkills}
+          />
         )}
 
         {/* TAMBAH LAMARAN MANUAL */}
